@@ -21,6 +21,9 @@ cdm <- cdmFromCon(
   cdmName = dbName
 )
 
+# temporary fix for having `numerator_value` stored as varchar
+cdm$drug_strength <- cdm$drug_strength %>%
+  dplyr::mutate(numerator_value = as.numeric(numerator_value))
 
 # cdm snapshot ----
 info(logger, 'CREATE SNAPSHOT')
@@ -411,9 +414,6 @@ ingredients <- c(
   "taliglucerase alfa" = 42800246L,
   "Agalsidase alfa" = 36878851L
 )
-
-cdm$drug_strength <- cdm$drug_strength %>%
-  dplyr::mutate(numerator_value = as.numeric(numerator_value))
 
 inc_use_summary <- tibble::as_tibble(NULL)
 for (j in seq_along(ingredients)) {
