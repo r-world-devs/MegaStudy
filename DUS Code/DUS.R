@@ -629,8 +629,8 @@ info(logger, "DRUG USE PREVALENT PATIENTS")
 
 prev_use_summary <- tibble::as_tibble(NULL)
 for (j in seq_along(ingredients)) {
-  ingredient <- ingredients[j]
-  name <- names[j]  
+  ingredient <- unname(ingredients)[j]
+  name <- names(ingredients)[j]  
   
   info(logger, paste0(ingredient))
   
